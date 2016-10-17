@@ -5,11 +5,69 @@
     <title>Cylinder Calculations</title>	
 	<link rel="stylesheet" href="css/styles.css">
 	<script>
-        
-        
-        
+        "use strict";
+        window.onload = init;
+        function init() {
+            //event listener:
+            document.getElementById
+            ("shapeForm").onsubmit = calculate;
+        }
+        function calculate() {
+            //Output variables
+            var volume;
+            var area;
+            //Input variables
+            var radius = document.getElementById("radius");
+            var height = document.getElementById("height");
+            //Make sure of the following:
+            //1. Referenced objects exists
+            if (radius && height) {
+                //2. Referenced object contain a valid value
+                if (isNaN(radius.value) ||
+                        (parseFloat(radius.value) <= 0)) {
+                    radius.value = "Enter # > 0";
+                    //Exit the function
+                    return false;
+                }
+                if (isNaN(height.value) ||
+                        (parseFloat(height.value) <= 0)) {
+                    height.value = "Enter # > 0";
+                    //Exit the function
+                    return false;
+                }
+                //Calculate:
+                volume =
+                        Math.PI *
+                        Math.pow(radius.value, 2) *
+                        height.value;
+                area =  (
+                                Math.PI *
+                                Math.pow(radius.value, 2) *
+                                2
+                        ) +
+                        (
+                                Math.PI *
+                                radius.value *
+                                height.value * 2
+                        );
+                //Format to 4 decimal places
+                volume = volume.toFixed(4);
+                area = area.toFixed(4);
+                //Output volume and area
+                document.getElementById("volume").value = volume;
+                document.getElementById("area").value = area;
+            }//if radius/height valid
+            //Prevent form resubmission:
+            return false;
+            //All functionality is on the
+            //client side.
+            //No need to send to server.
+        }//end function
         function formClear() {
-            
+            document.getElementById("radius").value = "0";
+            document.getElementById("height").value = "0";
+            document.getElementById("volume").value = "";
+            document.getElementById("area").value = "";
         }
 	</script>
 </head>
@@ -81,7 +139,7 @@
                 <tr>
                     <td></td>
                     <td>
-                        <input  type="submit"
+                        <input  type="button"
                                 class="sbmt"
                                 id="Clear"
                                 value="Clear"
